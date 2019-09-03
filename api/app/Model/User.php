@@ -14,4 +14,8 @@ class User extends Model
         'password',//密码
         'status'//状态（0-正常 1-禁用）
     ];
+
+    protected $hidden = [
+        'password'
+    ];
 }
