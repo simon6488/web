@@ -8,6 +8,7 @@ static/yarn-error.log*
 .buildpath
 .settings/
 .project
+api/.env
 api/*.patch
 api/runtime/
 api/.phpintel/
