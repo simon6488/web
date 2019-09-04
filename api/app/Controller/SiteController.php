@@ -10,7 +10,7 @@ class SiteController extends Controller
 {
     public function login()
     {
-        //return ['user' => User::all()->toArray()];
+        $data = $this->request->all();
         $redis = $this->container->get(Redis::class);
         $redis->set('test', 1);
         return [
