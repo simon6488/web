@@ -3,18 +3,21 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Model\User;
-use Hyperf\Redis\Redis;
+use App\Constants\ErrorCode;
+use App\Exception\ApiException;
+use App\Repository\UserRepository;
+use App\Validate\SiteValidate;
 
 class SiteController extends Controller
 {
-    public function login()
+
+    public function login(UserRepository $userRepository)
     {
         $data = $this->request->all();
-        $redis = $this->container->get(Redis::class);
-        $redis->set('test', 1);
-        return [
-            'value' => $redis->get('test')
-        ];
+        $v = SiteValidate::check($data);
+        if ($v->isFail()) {
+            throw new ApiException($v->firstError(), ErrorCode::VALIDATE_ERROR);
+        }
+        return $this->success(ErrorCode::HTTP_OK, "登录成功", $userRepository->login($v->getSafeData()));
     }
 }

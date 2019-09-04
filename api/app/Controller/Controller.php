@@ -39,4 +39,13 @@ abstract class Controller
         $this->request = $container->get(RequestInterface::class);
         $this->response = $container->get(ResponseInterface::class);
     }
+
+    public function success(int $code, string $message, $data)
+    {
+        return $this->response->json([
+            'code' => $code,
+            'message' => $message,
+            'data' => $data
+        ]);
+    }
 }
