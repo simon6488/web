@@ -19,7 +19,7 @@
         "hyperf/config": "~1.0.0",
         "hyperf/contract": "~1.0.0",
         "hyperf/database": "~1.0.0",
-        "hyperf/db-connection": "~1.0.0",
+        "hyperf/db-connection": "^1.0",
         "hyperf/devtool": "~1.0.0",
         "hyperf/di": "~1.0.0",
         "hyperf/dispatcher": "~1.0.0",
@@ -37,7 +37,8 @@
         "hyperf/utils": "~1.0.0",
         "hyperf/constants": "~1.0.0",
         "hyperf/model-cache": "~1.0.0",
-        "hyperf/tracer": "~1.0.0"
+        "hyperf/tracer": "~1.0.0",
+        "inhere/php-validate": "^2.7"
     },
     "require-dev": {
         "swoft/swoole-ide-helper": "^4.2",

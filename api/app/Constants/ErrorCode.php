@@ -23,5 +23,15 @@ class ErrorCode extends AbstractConstants
     /**
      * @Message("Server Error！")
      */
+    const HTTP_OK = 200;
+
+    const VALIDATE_ERROR = 422;
+
+    const AUTHENTICATION_INVALID = 401;
+
+    const AUTHENTICATION_REFUSED = 403;
+
+    const NOT_FOUND = 404;
+
     const SERVER_ERROR = 500;
 }
