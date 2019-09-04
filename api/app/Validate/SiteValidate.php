@@ -24,9 +24,4 @@ class SiteValidate extends Validation
             'password.required' => '密码不能为空'
         ];
     }
-
-    protected function siteValidator(): bool
-    {
-        return true;
-    }
 }

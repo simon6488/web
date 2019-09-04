@@ -11,6 +11,11 @@ use App\Validate\SiteValidate;
 class SiteController extends Controller
 {
 
+    /**
+     * 用户登录
+     * @param UserRepository $userRepository
+     * @return \Psr\Http\Message\ResponseInterface
+     */
     public function login(UserRepository $userRepository)
     {
         $data = $this->request->all();

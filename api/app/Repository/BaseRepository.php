@@ -39,7 +39,21 @@ abstract class BaseRepository
     }
 
     /**
-     * where查询
+     * where单字段查询
+     * @param string $field
+     * @param null $value
+     * @param array $columns
+     * @return mixed
+     */
+    public function findByField(string $field, $value = null, $columns = ['*'])
+    {
+        $model = $this->model->where($field, '=', $value)->get($columns);
+        $this->resetModel();
+        return $model;
+    }
+
+    /**
+     * where多条件查询
      * @param array $where
      * @param array $columns
      * @return mixed
@@ -50,6 +64,90 @@ abstract class BaseRepository
         $model = $this->model->get($columns);
         $this->resetModel();
         return $model;
+    }
+
+    /**
+     * where
+     * @param array $where
+     * @return $this
+     */
+    public function where(array $where)
+    {
+        $this->applyConditions($where);
+        return $this;
+    }
+
+    /**
+     * paginate
+     * @param int $limit
+     * @param array $columns
+     * @return mixed
+     */
+    public function paginate($limit = 10, $columns = ['*'])
+    {
+        $results = $this->model->paginate($limit, $columns);
+        $this->resetModel();
+        return $results;
+    }
+
+    /**
+     * orderBy
+     * @param $column
+     * @param string $direction
+     * @return $this
+     */
+    public function orderBy($column, $direction = 'asc')
+    {
+        $this->model = $this->model->orderBy($column, $direction);
+        return $this;
+    }
+
+    /**
+     * insert data
+     * @param array $attributes
+     * @return mixed
+     */
+    public function create(array $attributes)
+    {
+        $model = $this->model->newInstance($attributes);
+        if (!$model->save()) {
+            throw new ApiException("插入数据失败", ErrorCode::SERVER_ERROR);
+        }
+        $this->resetModel();
+        return $model;
+    }
+
+    /**
+     * update by primary key
+     * @param int $id
+     * @param array $attributes
+     * @return mixed
+     */
+    public function update(int $id, array $attributes)
+    {
+        $model = $this->model->find($id);
+        if (!$model) {
+            throw new ApiException("记录不存在", ErrorCode::NOT_FOUND);
+        }
+        $model->fill($attributes);
+        if (!$model->save()) {
+            throw new ApiException("更新数据失败", ErrorCode::SERVER_ERROR);
+        }
+        return $model;
+    }
+
+    /**
+     * update by where
+     * @param array $where
+     * @param array $attributes
+     * @return bool
+     */
+    public function updateWhere(array $where, array $attributes): bool
+    {
+        $this->applyConditions($where);
+        $this->model->update($attributes);
+        $this->resetModel();
+        return true;
     }
 
     /**

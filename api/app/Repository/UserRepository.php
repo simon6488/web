@@ -17,7 +17,7 @@ class UserRepository extends BaseRepository
 
     public function login(array $data): array
     {
-        $user = $this->findWhere(['username' => $data['username']])->first();
+        $user = $this->findByField('username', $data['username'])->first();
         if (!$user || !password_verify($data['password'], $user->password)) {
             throw new ApiException("用户名或者密码错误", ErrorCode::AUTHENTICATION_INVALID);
         }
