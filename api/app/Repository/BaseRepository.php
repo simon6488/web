@@ -137,6 +137,19 @@ abstract class BaseRepository
     }
 
     /**
+     * update or create
+     * @param array $attributes
+     * @param array $values
+     * @return mixed
+     */
+    public function updateOrCreate(array $attributes, array $values = [])
+    {
+        $model = $this->model->updateOrCreate($attributes, $values);
+        $this->resetModel();
+        return $model;
+    }
+
+    /**
      * update by where
      * @param array $where
      * @param array $attributes

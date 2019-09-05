@@ -3,19 +3,17 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-
-use GuzzleHttp\Psr7\UploadedFile;
 use Hyperf\Di\Annotation\Inject;
 
 class ExcelService
 {
     private $fileName;
 
+    private $filePath;
+
     private $titleConfig = [
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
     ];
-
-    private $path = '/uploads/';
 
     /**
      * @Inject
@@ -26,6 +24,12 @@ class ExcelService
     public function setFileName(string $fileName)
     {
         $this->fileName = $fileName;
+        return $this;
+    }
+
+    public function setFilePath(string $filePath)
+    {
+        $this->filePath = $filePath;
         return $this;
     }
 
@@ -106,5 +110,29 @@ class ExcelService
         $objWriter = \PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
         $objWriter->save('php://output');
         exit;
+    }
+
+    public function read()
+    {
+        $ext = strtolower(pathinfo($this->filePath, PATHINFO_EXTENSION));
+        if ($ext == 'xlsx') {
+            $objReader = \PHPExcel_IOFactory::createReader('Excel2007');
+            $objPHPExcel = $objReader->load($this->filePath, 'utf-8');
+        } elseif ($ext == 'xls') {
+            $objReader = \PHPExcel_IOFactory::createReader('Excel5');
+            $objPHPExcel = $objReader->load($this->filePath, 'utf-8');
+        }
+        $sheet = $objPHPExcel->getSheet(0);
+        $highestRow = $sheet->getHighestRow(); // 取得总行数
+        $highestColumn = $sheet->getHighestColumn();// 取得总列
+        $data = [];
+        for ($i = 2; $i <= $highestRow; $i++) {
+            $tmp = [];
+            for ($j = 1; $j <= $highestColumn; $j++) {
+                $tmp[] = $objPHPExcel->getActiveSheet()->getCell($this->titleConfig[$j] . $i)->getValue();
+            }
+            $data[] = $tmp;
+        }
+        return $data;
     }
 }
