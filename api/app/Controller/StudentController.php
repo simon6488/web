@@ -3,11 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-
 use App\Constants\ErrorCode;
-use App\Exception\ApiException;
 use App\Repository\StudentRepository;
-use App\Validate\StudentValidate;
 use Hyperf\Di\Annotation\Inject;
 
 class StudentController extends Controller
@@ -25,8 +22,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $data = $this->request->all();
-        return $this->success(ErrorCode::HTTP_OK, "", $this->studentRepository->getStudent($data));
+        return $this->success(ErrorCode::HTTP_OK, "", $this->studentRepository->getStudent($this->request->all()));
     }
 
     /**
@@ -35,12 +31,7 @@ class StudentController extends Controller
      */
     public function store()
     {
-        $data = $this->request->all();
-        $v = StudentValidate::check($data);
-        if ($v->isFail()) {
-            throw new ApiException($v->firstError(), ErrorCode::VALIDATE_ERROR);
-        }
-        return $this->success(ErrorCode::HTTP_OK, "保存成功", $this->studentRepository->addStudent($v->getSafeData()));
+        return $this->success(ErrorCode::HTTP_OK, "保存成功", $this->studentRepository->addOrUpdateStudent($this->request->all()));
     }
 
     /**
@@ -50,12 +41,7 @@ class StudentController extends Controller
      */
     public function update(int $id)
     {
-        $data = $this->request->all();
-        $v = StudentValidate::check($data);
-        if ($v->isFail()) {
-            throw new ApiException($v->firstError(), ErrorCode::VALIDATE_ERROR);
-        }
-        return $this->success(ErrorCode::HTTP_OK, "保存成功", $this->studentRepository->update($id, $v->getSafeData()));
+        return $this->success(ErrorCode::HTTP_OK, "保存成功", $this->studentRepository->addOrUpdateStudent($this->request->all(), $id));
     }
 
     /**

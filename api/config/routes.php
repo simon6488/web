@@ -27,3 +27,12 @@ Router::addGroup('/students', function () {
     Router::put('/{id}', 'App\Controller\StudentController@update');
     Router::delete('/{id}', 'App\Controller\StudentController@delete');
 });
+
+//成绩管理
+Router::addGroup('/grades', function () {
+    Router::get('', 'App\Controller\GradeController@index');
+    Router::post('', 'App\Controller\GradeController@store');
+    Router::post('/upload', 'App\Controller\GradeController@upload');
+    Router::put('/{id}', 'App\Controller\GradeController@update');
+    Router::delete('/{id}', 'App\Controller\GradeController@delete');
+});

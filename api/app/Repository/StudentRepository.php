@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Constants\ErrorCode;
 use App\Exception\ApiException;
+use App\Validate\StudentValidate;
 
 class StudentRepository extends BaseRepository
 {
@@ -39,16 +40,25 @@ class StudentRepository extends BaseRepository
     }
 
     /**
-     * 新增学生
+     * 新增或者更新学生
      * @param array $data
      * @return bool
      */
-    public function addStudent(array $data): bool
+    public function addOrUpdateStudent(array $data, int $id = 0): bool
     {
-        if ($this->findWhere(['name' => $data['name'], ['status', '>=', 0]])->count() > 0) {
+        $v = StudentValidate::check($data);
+        if ($v->isFail()) {
+            throw new ApiException(ErrorCode::VALIDATE_ERROR, $v->firstError());
+        }
+        $data = $v->getSafeData();
+        if ($id == 0 && $this->findWhere(['name' => $data['name'], ['status', '>=', 0]])->count() > 0) {
             throw new ApiException(ErrorCode::VALIDATE_ERROR, "学生已存在");
         }
-        $this->create($data);
+        if ($id) {
+            $this->update($id, $data);
+        } else {
+            $this->create($data);
+        }
         return true;
     }
 }
