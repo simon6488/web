@@ -28,7 +28,7 @@ abstract class BaseRepository
         $model = $this->container->get($this->model());
 
         if (!$model instanceof Model) {
-            throw new ApiException("Class {$this->model()} must be an instance of Hyperf\\Database\\Model\\Model", ErrorCode::SERVER_ERROR);
+            throw new ApiException(ErrorCode::SERVER_ERROR, "Class {$this->model()} must be an instance of Hyperf\\Database\\Model\\Model");
         }
         return $this->model = $model;
     }
@@ -111,7 +111,7 @@ abstract class BaseRepository
     {
         $model = $this->model->newInstance($attributes);
         if (!$model->save()) {
-            throw new ApiException("插入数据失败", ErrorCode::SERVER_ERROR);
+            throw new ApiException(ErrorCode::SERVER_ERROR, "插入数据失败");
         }
         $this->resetModel();
         return $model;
@@ -127,11 +127,11 @@ abstract class BaseRepository
     {
         $model = $this->model->find($id);
         if (!$model) {
-            throw new ApiException("记录不存在", ErrorCode::NOT_FOUND);
+            throw new ApiException(ErrorCode::NOT_FOUND, "记录不存在");
         }
         $model->fill($attributes);
         if (!$model->save()) {
-            throw new ApiException("更新数据失败", ErrorCode::SERVER_ERROR);
+            throw new ApiException(ErrorCode::SERVER_ERROR, "更新数据失败");
         }
         return $model;
     }

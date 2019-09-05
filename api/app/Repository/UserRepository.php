@@ -19,11 +19,11 @@ class UserRepository extends BaseRepository
     {
         $user = $this->findByField('username', $data['username'])->first();
         if (!$user || !password_verify($data['password'], $user->password)) {
-            throw new ApiException("用户名或者密码错误", ErrorCode::AUTHENTICATION_INVALID);
+            throw new ApiException(ErrorCode::AUTHENTICATION_INVALID, "用户名或者密码错误");
         }
 
         if ($user->status) {
-            throw new ApiException("账号被冻结", ErrorCode::AUTHENTICATION_REFUSED);
+            throw new ApiException(ErrorCode::AUTHENTICATION_REFUSED, "账号被冻结");
         }
         $value = [
             'id' => $user->id,

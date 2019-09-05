@@ -46,7 +46,7 @@ class StudentRepository extends BaseRepository
     public function addStudent(array $data): bool
     {
         if ($this->findWhere(['name' => $data['name'], ['status', '>=', 0]])->count() > 0) {
-            throw new ApiException("学生已存在", ErrorCode::VALIDATE_ERROR);
+            throw new ApiException(ErrorCode::VALIDATE_ERROR, "学生已存在");
         }
         $this->create($data);
         return true;

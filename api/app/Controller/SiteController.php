@@ -21,7 +21,7 @@ class SiteController extends Controller
         $data = $this->request->all();
         $v = SiteValidate::check($data);
         if ($v->isFail()) {
-            throw new ApiException($v->firstError(), ErrorCode::VALIDATE_ERROR);
+            throw new ApiException(ErrorCode::VALIDATE_ERROR, $v->firstError());
         }
         return $this->success(ErrorCode::HTTP_OK, "登录成功", $userRepository->login($v->getSafeData()));
     }

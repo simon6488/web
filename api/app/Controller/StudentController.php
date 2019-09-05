@@ -6,20 +6,18 @@ namespace App\Controller;
 
 use App\Constants\ErrorCode;
 use App\Exception\ApiException;
-use App\Model\Student;
 use App\Repository\StudentRepository;
 use App\Validate\StudentValidate;
-use Psr\Container\ContainerInterface;
+use Hyperf\Di\Annotation\Inject;
 
 class StudentController extends Controller
 {
+    /**
+     * @Inject
+     * @var StudentRepository
+     */
     private $studentRepository;
 
-    public function __construct(ContainerInterface $container)
-    {
-        parent::__construct($container);
-        $this->studentRepository = new StudentRepository($container);
-    }
 
     /**
      * 获取学生列表

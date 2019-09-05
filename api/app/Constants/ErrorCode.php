@@ -21,7 +21,7 @@ use Hyperf\Constants\Annotation\Constants;
 class ErrorCode extends AbstractConstants
 {
     /**
-     * @Message("Server Error！")
+     * @Message("Success")
      */
     const HTTP_OK = 200;
 
