@@ -21,6 +21,7 @@ class Grade extends Model
         'a_seventh',//七A
         'a_eighth',//八A
         'a_final',//期末A
-        'b_final'//期末B
+        'b_final',//期末B
+        'status'//0-正常 -1删除
     ];
 }

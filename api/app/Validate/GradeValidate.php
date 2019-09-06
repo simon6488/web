@@ -11,11 +11,13 @@ class GradeValidate extends Validation
     public function rules(): array
     {
         return [
-            ['grade,term,type,file', 'required'],
-            ['grade', 'number', 'in' => [1, 2, 3, 4, 5, 6]],
-            ['term', 'number', 'in' => [1, 2]],
-            ['type', 'string', 'in' => ['a_first', 'a_second', 'a_third', 'a_fourth', 'a_mid', 'a_fifth', 'a_sixth', 'a_seventh', 'a_eighth', 'a_final', 'b_final']],
-            ['file', 'array']
+            ['grade,term,type', 'required'],
+            ['student_id', 'number', 'on' => 'store'],
+            ['grade', 'in', [1, 2, 3, 4, 5, 6]],
+            ['term', 'in', [1, 2]],
+            ['type', 'in', ['a_first', 'a_second', 'a_third', 'a_fourth', 'a_mid', 'a_fifth', 'a_sixth', 'a_seventh', 'a_eighth', 'a_final', 'b_final']],
+            ['point', 'float', 'on' => 'store'],
+            ['file', 'array', 'on' => 'upload']
         ];
     }
 
@@ -28,7 +30,9 @@ class GradeValidate extends Validation
             'term.in' => '学期类型错误',
             'type.required' => '成绩类型不能为空',
             'type.in' => '成绩类型错误',
-            'file.required' => '上传文件不能为空'
+            'student_id.number' => '学号格式错误',
+            'point.float' => '成绩格式错误',
+            'file.array' => '上传文件不能为空'
         ];
     }
 }

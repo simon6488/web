@@ -6,7 +6,7 @@ namespace App\Repository;
 
 use App\Constants\ErrorCode;
 use App\Exception\ApiException;
-use Hyperf\Redis\Redis;
+use App\Service\CacheService;
 
 class UserRepository extends BaseRepository
 {
@@ -32,7 +32,7 @@ class UserRepository extends BaseRepository
         ];
         $token = md5(json_encode($value, JSON_UNESCAPED_UNICODE));
         $value['token'] = $token;
-        $this->container->get(Redis::class)->set($token, $value, 3600);
+        CacheService::setex($token, $value, 3600);
         return $value;
     }
 }

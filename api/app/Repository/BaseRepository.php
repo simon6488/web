@@ -172,7 +172,11 @@ abstract class BaseRepository
         foreach ($where as $field => $value) {
             if (is_array($value)) {
                 list($field, $condition, $val) = $value;
-                $this->model = $this->model->where($field, $condition, $val);
+                if ($condition == 'in') {
+                    $this->model = $this->model->whereIn($field, $val);
+                } else {
+                    $this->model = $this->model->where($field, $condition, $val);
+                }
             } else {
                 $this->model = $this->model->where($field, '=', $value);
             }

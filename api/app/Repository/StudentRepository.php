@@ -61,4 +61,15 @@ class StudentRepository extends BaseRepository
         }
         return true;
     }
+
+    /**
+     * 删除学生
+     * @param int $id
+     * @return bool
+     */
+    public function deleteStudent(int $id): bool
+    {
+        $this->update($id, ['status' => -1]);
+        return true;
+    }
 }

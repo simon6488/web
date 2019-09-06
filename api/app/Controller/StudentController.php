@@ -51,6 +51,6 @@ class StudentController extends Controller
      */
     public function delete(int $id)
     {
-        return $this->success(ErrorCode::HTTP_OK, "删除成功", $this->studentRepository->update($id, ['status' => -1]));
+        return $this->success(ErrorCode::HTTP_OK, "删除成功", $this->studentRepository->deleteStudent($id));
     }
 }
