@@ -62,7 +62,6 @@
                             password: this.ruleForm2.password
                         }).then(response => {
                             this.logining = false;
-                            console.log(response)
                             if (response.data.code == 200) {
                                 sessionStorage.setItem("user",JSON.stringify(response.data.data));
                                 this.$router.push({path: "/"});
