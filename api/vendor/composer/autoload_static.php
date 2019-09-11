@@ -90,10 +90,6 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
         array (
             'Jean85\\' => 7,
         ),
-        'I' => 
-        array (
-            'Installer\\' => 10,
-        ),
         'H' => 
         array (
             'Hyperf\\Utils\\' => 13,
@@ -320,10 +316,6 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
         'Jean85\\' => 
         array (
             0 => __DIR__ . '/..' . '/jean85/pretty-package-versions/src',
-        ),
-        'Installer\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/installer',
         ),
         'Hyperf\\Utils\\' => 
         array (
