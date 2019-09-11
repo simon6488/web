@@ -25,7 +25,7 @@ class AuthMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if (($token = $this->request->input('token')) != null) {
+        if (($token = $this->request->header('token')) != null) {
             $user = CacheService::get($token);
             if (!$user) {
                 throw new ApiException(ErrorCode::AUTHENTICATION_INVALID, "登录失效");
