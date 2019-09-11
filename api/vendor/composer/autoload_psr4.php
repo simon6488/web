@@ -45,6 +45,7 @@ return array(
     'PDepend\\' => array($vendorDir . '/pdepend/pdepend/src/main/php/PDepend'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Jean85\\' => array($vendorDir . '/jean85/pretty-package-versions/src'),
+    'Inhere\\Validate\\' => array($vendorDir . '/inhere/php-validate/src'),
     'Hyperf\\Utils\\' => array($vendorDir . '/hyperf/utils/src'),
     'Hyperf\\Tracer\\' => array($vendorDir . '/hyperf/tracer/src'),
     'Hyperf\\Testing\\' => array($vendorDir . '/hyperf/testing/src'),

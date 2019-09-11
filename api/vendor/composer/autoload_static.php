@@ -90,6 +90,10 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
         array (
             'Jean85\\' => 7,
         ),
+        'I' => 
+        array (
+            'Inhere\\Validate\\' => 16,
+        ),
         'H' => 
         array (
             'Hyperf\\Utils\\' => 13,
@@ -317,6 +321,10 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
         array (
             0 => __DIR__ . '/..' . '/jean85/pretty-package-versions/src',
         ),
+        'Inhere\\Validate\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/inhere/php-validate/src',
+        ),
         'Hyperf\\Utils\\' => 
         array (
             0 => __DIR__ . '/..' . '/hyperf/utils/src',
@@ -516,6 +524,10 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
             'PHPMD\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpmd/phpmd/src/main/php',
+            ),
+            'PHPExcel' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes',
             ),
         ),
         'M' => 
