@@ -63,7 +63,7 @@
                         }).then(response => {
                             this.logining = false;
                             if (response.data.code == 200) {
-                                sessionStorage.setItem("user",JSON.stringify(response.data.data));
+                                this.$cookies.set("user", JSON.stringify(response.data.data), {expires: 7});
                                 this.$router.push({path: "/"});
                             } else {
                                 this.$alert(response.data.message, "info", {

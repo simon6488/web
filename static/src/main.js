@@ -6,6 +6,7 @@ import router from './router'
 import VueParticles from 'vue-particles'
 import ElementUI from 'element-ui'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 import Global from './global/Global'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/index.scss'
@@ -21,10 +22,13 @@ axios.defaults.timeout = 5000
 //http request 封装请求头拦截器
 axios.interceptors.request.use(
     config => {
-        var token = '';
-        var user = JSON.parse(sessionStorage.getItem('user'));
-        if (user) {
-            token = user.token;
+        let token = '';
+        if (Cookies.get('user') === undefined) {
+        } else {
+            let user = JSON.parse(Cookies.get('user'));
+            if (user) {
+                token = user.token;
+            }
         }
         //注意使用的时候需要引入cookie方法，推荐js-cookie
         config.data = JSON.stringify(config.data);
@@ -44,7 +48,6 @@ axios.interceptors.request.use(
 //http response 封装后台返回拦截器
 axios.interceptors.response.use(
     response => {
-        console.log(response)
         //当返回信息为未登录或者登录失效的时候重定向为登录页面
         if (response.status == '401' || response.status == '403') {
             router.push({
@@ -60,13 +63,13 @@ axios.interceptors.response.use(
 )
 Vue.prototype.$http = axios
 
+//Cookies
+Vue.prototype.$cookies = Cookies;
+
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
-    if (to.path === '/login') {
-        sessionStorage.removeItem('user');
-    }
-    var user = sessionStorage.getItem('user');
+    let user = Cookies.get('user');
     if (!user && to.path !== '/login') {
         next({
             path: '/login'

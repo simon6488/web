@@ -111,7 +111,16 @@
         },
         methods: {
             handleSearch() {
-
+                let filter = {};
+                if (this.studentId) {
+                    filter.student_id = this.studentId;
+                }
+                if (this.name) {
+                    filter.name = this.name;
+                }
+                this.$http.get('/students', filter).then(response => {
+                    console.log(response)
+                });
             },
             handleAdd() {
                 this.dialogFormVisible = true;
@@ -126,13 +135,10 @@
 
             },
             initData() {
-
+                this.handleSearch();
             }
         },
         mounted() {
-            http = this.$http.create({
-                baseURL: '/admin/api/users/log'
-            });
             this.initData();
         }
     }
