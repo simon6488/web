@@ -139,7 +139,7 @@ final class Versions
   'symfony/stopwatch' => 'v4.3.4@1e4ff456bd625be5032fac9be4294e60442e9b71',
   'theseer/tokenizer' => '1.1.3@11336f6f84e16a720dae9d8e6ed5019efa85a0f9',
   'webmozart/assert' => '1.5.0@88e6d84706d09a236046d686bbea96f07b3a34f4',
-  'hyperf/hyperf-skeleton' => 'v1.0.5@',
+  'hyperf/hyperf-skeleton' => 'No version set (parsed as 1.0.0)@',
 );
 
     private function __construct()
