@@ -79,7 +79,7 @@
             logout: function () {
                 this.$confirm("确认退出?", "提示", {})
                     .then(() => {
-                        sessionStorage.removeItem("user");
+                        this.$cookies.remove("user");
                         this.$router.push("/login");
                     })
                     .catch(() => {

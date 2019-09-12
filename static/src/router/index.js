@@ -7,6 +7,7 @@ import Container from '@/container/Container'
 import Dashboard from '@/views/dashboard'
 import Admin from '@/views/admin'
 import Student from '@/views/student'
+import Grade from '@/views/grade'
 
 Vue.use(Router)
 
@@ -25,6 +26,7 @@ export default new Router({
             children: [
                 {path: 'dashboard', name: '首页', component: Dashboard,},
                 {path: 'student', name: '学生管理', component: Student,},
+                {path: 'grade', name: '成绩管理', component: Grade,},
                 {path: 'admin', name: '系统管理', component: Admin,},
             ]
         }

@@ -26,7 +26,7 @@ Router::addGroup('/students', function () {
     Router::post('', 'App\Controller\StudentController@store');
     Router::put('/{id}', 'App\Controller\StudentController@update');
     Router::delete('/{id}', 'App\Controller\StudentController@delete');
-},['middleware' => [\App\Middleware\AuthMiddleware::class]]);
+}, ['middleware' => [\App\Middleware\AuthMiddleware::class]]);
 
 //成绩管理
 Router::addGroup('/grades', function () {
@@ -35,4 +35,4 @@ Router::addGroup('/grades', function () {
     Router::post('/upload', 'App\Controller\GradeController@upload');
     Router::put('/{id}', 'App\Controller\GradeController@update');
     Router::delete('/{id}', 'App\Controller\GradeController@delete');
-});
+}, ['middleware' => [\App\Middleware\AuthMiddleware::class]]);

@@ -50,11 +50,8 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
         //当返回信息为未登录或者登录失效的时候重定向为登录页面
-        if (response.status == '401' || response.status == '403') {
-            router.push({
-                path: "/",
-                query: {redirect: router.currentRoute.fullPath}//从哪个页面跳转
-            })
+        if (response.data.code == 401 || response.data.code == 403) {
+            router.push('/login');
         }
         return response
     },

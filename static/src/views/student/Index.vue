@@ -98,7 +98,6 @@
 
 <script>
     export default {
-        name: "Student",
         data() {
             return {
                 studentId: '',
@@ -140,7 +139,7 @@
             },
             //当前页改变
             handleCurrentChange(val) {
-                this.pageNo = parseInt(`${val}`)
+                this.currentPage = parseInt(`${val}`)
                 this.initData()
             },
             handleAdd() {
@@ -164,6 +163,7 @@
                                 type: 'success',
                                 center: true
                             });
+                            this.dialogFormVisible = false
                             this.handleSearch()
                         } else {
                             this.$message({
@@ -181,6 +181,7 @@
                                 type: 'success',
                                 center: true
                             });
+                            this.dialogFormVisible = false
                             this.handleSearch()
                         } else {
                             this.$message({
