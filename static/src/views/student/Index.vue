@@ -64,15 +64,14 @@
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="currentPage"
-                :page-sizes="[10, 15, 20]"
                 :page-size="perPage"
-                layout="total, sizes, prev, pager, next, jumper"
+                layout="total, prev, pager, next, jumper"
                 :total="total">
         </el-pagination>
         <el-dialog title="编辑管理员" :visible.sync="dialogFormVisible">
             <el-form :model="form">
                 <el-form-item label="学号" :label-width="formLabelWidth">
-                    <el-input-number v-model="form.student_id" min="1" step="1" auto-complete="off"></el-input-number>
+                    <el-input-number v-model="form.student_id" :min="1" :step="1" auto-complete="off"></el-input-number>
                 </el-form-item>
                 <el-form-item label="姓名" :label-width="formLabelWidth">
                     <el-input v-model="form.name" auto-complete="off"></el-input>
@@ -107,24 +106,26 @@
                 form: {},
                 formLabelWidth: '120px',
                 dialogFormVisible: false,
-                radioGender: 1,
-                radioStatus: 0,
+                radioGender: '1',
+                radioStatus: '0',
                 tableData: [],
                 currentPage: 1,
                 perPage: 10,
-                total:0
+                total: 0
             }
         },
         methods: {
             handleSearch() {
-                let filter = {}
+                let filter = {
+                    page: this.currentPage
+                }
                 if (this.studentId) {
                     filter.student_id = this.studentId
                 }
                 if (this.name) {
                     filter.name = this.name
                 }
-                this.$http.get('/students', filter).then(response => {
+                this.$http.get('/students', {params: filter}).then(response => {
                     this.tableData = response.data.data.data
                     this.currentPage = response.data.data.current_page
                     this.perPage = response.data.data.per_page
@@ -133,16 +134,17 @@
             },
             //改变每页显示数量
             handleSizeChange(val) {
-                this.pageNo = 1
-                this.pageSize = parseInt(`${val}`);
+                this.currentPage = 1
+                this.perPage = parseInt(`${val}`);
                 this.initData();
             },
             //当前页改变
             handleCurrentChange(val) {
-                this.pageNo = parseInt(`${val}`);
-                this.initData();
+                this.pageNo = parseInt(`${val}`)
+                this.initData()
             },
             handleAdd() {
+                this.form = {}
                 this.dialogFormVisible = true
             },
             handleEdit(row) {
@@ -152,7 +154,43 @@
                 this.dialogFormVisible = true;
             },
             onSubmit() {
-
+                this.form.gender = this.radioGender
+                this.form.status = this.radioStatus
+                if (this.form.id) {
+                    this.$http.put('/students/' + this.form.id.toString(), this.form).then(response => {
+                        if (response.data.code == 200) {
+                            this.$message({
+                                message: response.data.message,
+                                type: 'success',
+                                center: true
+                            });
+                            this.handleSearch()
+                        } else {
+                            this.$message({
+                                message: response.data.message,
+                                type: 'error',
+                                center: true
+                            })
+                        }
+                    })
+                } else {
+                    this.$http.post('/students', this.form).then(response => {
+                        if (response.data.code == 200) {
+                            this.$message({
+                                message: response.data.message,
+                                type: 'success',
+                                center: true
+                            });
+                            this.handleSearch()
+                        } else {
+                            this.$message({
+                                message: response.data.message,
+                                type: 'error',
+                                center: true
+                            })
+                        }
+                    })
+                }
             },
             initData() {
                 this.handleSearch()

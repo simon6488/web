@@ -30,7 +30,7 @@ class ApiExceptionHandler extends ExceptionHandler
 
             // 阻止异常冒泡
             $this->stopPropagation();
-            return $response->withStatus($throwable->getCode())
+            return $response->withStatus(200)
                 ->withHeader('Content-Type', 'application/json')
                 ->withBody(new SwooleStream($data));
         }
