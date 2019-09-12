@@ -30,12 +30,20 @@
                     width="180">
             </el-table-column>
             <el-table-column
-                    prop="gender"
                     label="性别">
+                <template slot-scope="scope">
+                    <div>
+                        <span>{{ scope.row.gender|genderFilter }}</span>
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
-                    prop="status"
                     label="状态">
+                <template slot-scope="scope">
+                    <div>
+                        <span>{{ scope.row.status|statusFilter }}</span>
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="contact"
@@ -51,6 +59,16 @@
                 </template>
             </el-table-column>
         </el-table>
+        <el-pagination
+                class="pull-right clearfix"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-sizes="[10, 15, 20]"
+                :page-size="perPage"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total">
+        </el-pagination>
         <el-dialog title="编辑管理员" :visible.sync="dialogFormVisible">
             <el-form :model="form">
                 <el-form-item label="学号" :label-width="formLabelWidth">
@@ -64,8 +82,8 @@
                     <el-radio v-model="radioGender" label="2">女</el-radio>
                 </el-form-item>
                 <el-form-item label="状态" :label-width="formLabelWidth">
-                    <el-radio v-model="radioStatus" label="0">有效</el-radio>
-                    <el-radio v-model="radioStatus" label="1">无效</el-radio>
+                    <el-radio v-model="radioStatus" label="0">启用</el-radio>
+                    <el-radio v-model="radioStatus" label="1">禁用</el-radio>
                 </el-form-item>
                 <el-form-item label="家长手机" :label-width="formLabelWidth">
                     <el-input v-model="form.contact" auto-complete="off"></el-input>
@@ -91,55 +109,57 @@
                 dialogFormVisible: false,
                 radioGender: 1,
                 radioStatus: 0,
-                tableData: [
-                    {
-                        student_id: 1,
-                        name: '王小虎',
-                        gender: 1,
-                        status: 0,
-                        contact: '13957151455'
-                    },
-                    {
-                        student_id: 2,
-                        name: '王小红',
-                        gender: 2,
-                        status: 1,
-                        contact: '13957151455'
-                    },
-                ]
+                tableData: [],
+                currentPage: 1,
+                perPage: 10,
+                total:0
             }
         },
         methods: {
             handleSearch() {
-                let filter = {};
+                let filter = {}
                 if (this.studentId) {
-                    filter.student_id = this.studentId;
+                    filter.student_id = this.studentId
                 }
                 if (this.name) {
-                    filter.name = this.name;
+                    filter.name = this.name
                 }
                 this.$http.get('/students', filter).then(response => {
-                    console.log(response)
+                    this.tableData = response.data.data.data
+                    this.currentPage = response.data.data.current_page
+                    this.perPage = response.data.data.per_page
+                    this.total = response.data.data.total
                 });
             },
+            //改变每页显示数量
+            handleSizeChange(val) {
+                this.pageNo = 1
+                this.pageSize = parseInt(`${val}`);
+                this.initData();
+            },
+            //当前页改变
+            handleCurrentChange(val) {
+                this.pageNo = parseInt(`${val}`);
+                this.initData();
+            },
             handleAdd() {
-                this.dialogFormVisible = true;
+                this.dialogFormVisible = true
             },
             handleEdit(row) {
                 this.form = row;
-                this.radioGender = this.form.gender.toString();
-                this.radioStatus = this.form.status.toString();
+                this.radioGender = this.form.gender.toString()
+                this.radioStatus = this.form.status.toString()
                 this.dialogFormVisible = true;
             },
             onSubmit() {
 
             },
             initData() {
-                this.handleSearch();
+                this.handleSearch()
             }
         },
         mounted() {
-            this.initData();
+            this.initData()
         }
     }
 </script>

@@ -10,7 +10,8 @@
                 </div>
                 <div>
                     <!-- 我是样例菜单 -->
-                    <el-menu router
+                    <el-menu default-active="dashboard"
+                             router
                              class="el-menu-vertical-demo"
                              @open="handleOpen"
                              :collapse="isCollapse">
@@ -36,16 +37,6 @@
                         <i v-show="!isCollapse" class="el-icon-d-arrow-left"></i>
                         <i v-show="isCollapse" class="el-icon-d-arrow-right"></i>
                     </div>
-                    <!-- 我是样例菜单 -->
-                    <el-menu default-active="/"
-                             router
-                             class="el-menu-demo tab-page"
-                             mode="horizontal"
-                             @select="handleSelect"
-                             active-text-color="#409EFF">
-                        <el-menu-item index="/">首页</el-menu-item>
-                    </el-menu>
-
                     <div class="app-header-userinfo">
                         <el-dropdown trigger="hover" :hide-on-click="false">
               <span class="el-dropdown-link">

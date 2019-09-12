@@ -36,7 +36,7 @@ class StudentRepository extends BaseRepository
         if (isset($data['contact'])) {
             $where['contact'] = $data['contact'];
         }
-        return $this->where($where)->orderBy('student_id', 'asc')->paginate(10)->toArray();
+        return $this->where($where)->orderBy('student_id', 'asc')->paginate($data['per_page'] ?? 10)->toArray();
     }
 
     /**

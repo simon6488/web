@@ -8,6 +8,7 @@ import ElementUI from 'element-ui'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import Global from './global/Global'
+import filters from './filters/filters'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/index.scss'
 import 'font-awesome/scss/font-awesome.scss'
@@ -22,26 +23,26 @@ axios.defaults.timeout = 5000
 //http request 封装请求头拦截器
 axios.interceptors.request.use(
     config => {
-        let token = '';
+        let token = ''
         if (Cookies.get('user') === undefined) {
         } else {
-            let user = JSON.parse(Cookies.get('user'));
+            let user = JSON.parse(Cookies.get('user'))
             if (user) {
-                token = user.token;
+                token = user.token
             }
         }
         //注意使用的时候需要引入cookie方法，推荐js-cookie
-        config.data = JSON.stringify(config.data);
+        config.data = JSON.stringify(config.data)
         config.headers = {
             'Content-Type': 'application/json'
         }
         if (token != '') {
-            config.headers.token = token;
+            config.headers.token = token
         }
-        return config;
+        return config
     },
     error => {
-        return Promise.reject(err);
+        return Promise.reject(err)
     }
 );
 
@@ -55,7 +56,7 @@ axios.interceptors.response.use(
                 query: {redirect: router.currentRoute.fullPath}//从哪个页面跳转
             })
         }
-        return response;
+        return response
     },
     error => {
         return Promise.reject(error)
@@ -64,18 +65,23 @@ axios.interceptors.response.use(
 Vue.prototype.$http = axios
 
 //Cookies
-Vue.prototype.$cookies = Cookies;
+Vue.prototype.$cookies = Cookies
+
+//filters
+Object.keys(filters).forEach(key => {
+    Vue.filter(key, filters[key])
+})
 
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
-    let user = Cookies.get('user');
+    let user = Cookies.get('user')
     if (!user && to.path !== '/login') {
         next({
             path: '/login'
         })
     } else {
-        next();
+        next()
     }
 })
 

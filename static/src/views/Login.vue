@@ -56,23 +56,23 @@
             handleSubmit(event) {
                 this.$refs.ruleForm2.validate(valid => {
                     if (valid) {
-                        this.logining = true;
+                        this.logining = true
                         this.$http.post('/site/login', {
                             username: this.ruleForm2.username,
                             password: this.ruleForm2.password
                         }).then(response => {
-                            this.logining = false;
+                            this.logining = false
                             if (response.data.code == 200) {
-                                this.$cookies.set("user", JSON.stringify(response.data.data), {expires: 7});
-                                this.$router.push({path: "/"});
+                                this.$cookies.set("user", JSON.stringify(response.data.data), {expires: 7})
+                                this.$router.push({path: "/"})
                             } else {
                                 this.$alert(response.data.message, "info", {
                                     confirmButtonText: "ok"
-                                });
+                                })
                             }
-                        });
+                        })
                     } else {
-                        return false;
+                        return false
                     }
                 });
             }

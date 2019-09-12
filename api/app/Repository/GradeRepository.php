@@ -60,7 +60,7 @@ class GradeRepository extends BaseRepository
             ->orderBy('grade', 'desc')
             ->orderBy('term', 'desc')
             ->orderBy('student_id', 'asc')
-            ->paginate(10)->toArray();
+            ->paginate($data['per_page'] ?? 10)->toArray();
         if ($data['total']) {
             $studentIds = array_column($data['data'], 'student_id');
             $studentInfo = $this->studentRepository->findWhere([['student_id', 'in', $studentIds]], ['student_id', 'name', 'gender'])->toArray();
