@@ -14,12 +14,17 @@ Vue.use(Router)
 export default new Router({
     routes: [
         {
+            path: '/',
+            name: 'Home',
+            component: Home
+        },
+        {
             path: '/login',
             name: 'Login',
             component: Login
         },
         {
-            path: '/',
+            path: '/dashboard',
             redirect: '/dashboard',
             name: 'Container',
             component: Container,
