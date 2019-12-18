@@ -19,7 +19,7 @@
         >
         </vue-particles>
         <div class="footer-t">
-            <span><a href="http://www.beian.miit.gov.cn">浙ICP备19006658</a></span>
+            <span><a target="_blank" href="http://www.beian.miit.gov.cn">浙ICP备19006658</a></span>
         </div>
     </div>
 </template>
