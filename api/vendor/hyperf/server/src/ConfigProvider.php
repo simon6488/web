@@ -7,12 +7,15 @@ declare(strict_types=1);
  * @link     https://www.hyperf.io
  * @document https://doc.hyperf.io
  * @contact  group@hyperf.io
- * @license  https://github.com/hyperf-cloud/hyperf/blob/master/LICENSE
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 
 namespace Hyperf\Server;
 
+use Hyperf\Server\Command\StartServer;
+use Hyperf\Server\Listener\AfterWorkerStartListener;
 use Hyperf\Server\Listener\InitProcessTitleListener;
+use Swoole\Server as SwooleServer;
 
 class ConfigProvider
 {
@@ -20,15 +23,20 @@ class ConfigProvider
     {
         return [
             'dependencies' => [
-            ],
-            'commands' => [
+                SwooleServer::class => SwooleServerFactory::class,
             ],
             'listeners' => [
+                AfterWorkerStartListener::class,
                 InitProcessTitleListener::class,
             ],
-            'scan' => [
-                'paths' => [
-                    __DIR__,
+            'commands' => [
+                StartServer::class,
+            ],
+            'annotations' => [
+                'scan' => [
+                    'paths' => [
+                        __DIR__,
+                    ],
                 ],
             ],
             'publish' => [

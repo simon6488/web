@@ -8,20 +8,14 @@ class Grade extends Model
     protected $table = 'grades';
 
     protected $fillable = [
-        'student_id',//学号
+        'student_id',//学生主键
         'grade',//年级
         'term',//学期
-        'a_first',//一A
-        'a_second',//二A
-        'a_third',//三A
-        'a_fourth',//四A
-        'a_mid',//期中A
-        'a_fifth',//五A
-        'a_sixth',//六A
-        'a_seventh',//七A
-        'a_eighth',//八A
-        'a_final',//期末A
-        'b_final',//期末B
-        'status'//0-正常 -1删除
+        'subject',//学科
+        'score',//具体成绩
+        'status',//0-正常 -1删除
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 }

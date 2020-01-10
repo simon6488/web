@@ -7,7 +7,7 @@ declare(strict_types=1);
  * @link     https://www.hyperf.io
  * @document https://doc.hyperf.io
  * @contact  group@hyperf.io
- * @license  https://github.com/hyperf-cloud/hyperf/blob/master/LICENSE
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 
 namespace Hyperf\Utils;
@@ -52,7 +52,9 @@ class Composer
                 throw new \RuntimeException('composer.lock not found.');
             }
             self::$content = collect(json_decode(file_get_contents($path), true));
-            foreach (self::$content->offsetGet('packages') ?? [] as $package) {
+            $packages = self::$content->offsetGet('packages') ?? [];
+            $packagesDev = self::$content->offsetGet('packages-dev') ?? [];
+            foreach (array_merge($packages, $packagesDev) as $package) {
                 $packageName = '';
                 foreach ($package ?? [] as $key => $value) {
                     if ($key === 'name') {

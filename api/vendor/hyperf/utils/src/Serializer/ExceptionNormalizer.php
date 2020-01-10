@@ -7,11 +7,12 @@ declare(strict_types=1);
  * @link     https://www.hyperf.io
  * @document https://doc.hyperf.io
  * @contact  group@hyperf.io
- * @license  https://github.com/hyperf-cloud/hyperf/blob/master/LICENSE
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 
 namespace Hyperf\Utils\Serializer;
 
+use Doctrine\Instantiator\Instantiator;
 use Hyperf\Di\ReflectionManager;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -20,23 +21,28 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class ExceptionNormalizer implements NormalizerInterface, DenormalizerInterface, CacheableSupportsMethodInterface
 {
     /**
+     * @var Instantiator
+     */
+    protected $instantiator;
+
+    /**
      * {@inheritdoc}
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (is_string($data)) {
             $ex = unserialize($data);
-            if ($ex instanceof \Exception) {
+            if ($ex instanceof \Throwable) {
                 return $ex;
             }
 
-            // Retry handle it if the exception not instanceof \Exception.
+            // Retry handle it if the exception not instanceof \Throwable.
             $data = $ex;
         }
         if (is_array($data) && isset($data['message'], $data['code'])) {
             try {
-                $exception = new $class($data['message'], $data['code']);
-                foreach (['file', 'line'] as $attribute) {
+                $exception = $this->getInstantiator()->instantiate($class);
+                foreach (['code', 'message', 'file', 'line'] as $attribute) {
                     if (isset($data[$attribute])) {
                         $property = ReflectionManager::reflectProperty($class, $attribute);
                         $property->setAccessible(true);
@@ -67,7 +73,7 @@ class ExceptionNormalizer implements NormalizerInterface, DenormalizerInterface,
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return class_exists($type) && is_a($type, \Exception::class, true);
+        return class_exists($type) && is_a($type, \Throwable::class, true);
     }
 
     /**
@@ -78,7 +84,7 @@ class ExceptionNormalizer implements NormalizerInterface, DenormalizerInterface,
         if ($object instanceof \Serializable) {
             return serialize($object);
         }
-        /* @var \Exception $object */
+        /* @var \Throwable $object */
         return [
             'message' => $object->getMessage(),
             'code' => $object->getCode(),
@@ -92,7 +98,7 @@ class ExceptionNormalizer implements NormalizerInterface, DenormalizerInterface,
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof \Exception;
+        return $data instanceof \Throwable;
     }
 
     /**
@@ -101,5 +107,14 @@ class ExceptionNormalizer implements NormalizerInterface, DenormalizerInterface,
     public function hasCacheableSupportsMethod(): bool
     {
         return \get_class($this) === __CLASS__;
+    }
+
+    protected function getInstantiator(): Instantiator
+    {
+        if ($this->instantiator instanceof Instantiator) {
+            return $this->instantiator;
+        }
+
+        return $this->instantiator = new Instantiator();
     }
 }

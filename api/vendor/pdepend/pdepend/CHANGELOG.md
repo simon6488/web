@@ -1,5 +1,19 @@
+pdepend-2.6.1 (2019/12/19)
+==========================
+
+- Added #398 Support for Symfony 5
+
+pdepend-2.6.0 (2019/12/16)
+==========================
+
+- Added #383 Support of PHP 7.1 syntax
+- Fixed #386 PHP 7 and parsing some return types
+- Fixed #381 Unexpected token error with invokable
+- Fixed #365 unable to call method on newly created and invoked class
+- Removed #388 not needed files from the export used by composer
+
 pdepend-2.5.2 (2017/12/13)
-=
+==========================
 
 This release contains a single bugfix for missing command options.
 

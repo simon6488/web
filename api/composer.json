@@ -38,8 +38,8 @@
         "hyperf/constants": "~1.1.0",
         "hyperf/model-cache": "~1.1.0",
         "hyperf/tracer": "~1.1.0",
-        "inhere/php-validate": "^2.7",
-        "phpoffice/phpexcel": "^1.8"
+        "phpoffice/phpexcel": "^1.8",
+        "hyperf/validation": "^1.1"
     },
     "require-dev": {
         "swoft/swoole-ide-helper": "^4.2",

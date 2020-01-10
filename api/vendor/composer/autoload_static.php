@@ -8,24 +8,28 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        '59af96974553a1fc6407327354b6f47e' => __DIR__ . '/..' . '/nette/di/src/compatibility.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'bbeb7603826cb9296dde3ca1a840af47' => __DIR__ . '/..' . '/hyperf/utils/src/Functions.php',
+        '7e9bd612cc444b3eed788ebbe46263a0' => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src/autoload.php',
         '46a9bb9cbc7a6a5c34938373dbe690c3' => __DIR__ . '/..' . '/hyperf/di/src/Functions.php',
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        '59af96974553a1fc6407327354b6f47e' => __DIR__ . '/..' . '/nette/di/src/compatibility.php',
+        '870c221a18597bfcd5ed576d0fb64a19' => __DIR__ . '/..' . '/opentracing/opentracing/src/OpenTracing/Tags.php',
+        'd25d883add1ecab0d3a9ffec57f0f183' => __DIR__ . '/..' . '/opentracing/opentracing/src/OpenTracing/Formats.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '198ca788260cba849b8d9061ef2afeb7' => __DIR__ . '/..' . '/openzipkin/zipkin/src/Zipkin/Propagation/Id.php',
         '1078d5a0858ccde97f683b735c9f5473' => __DIR__ . '/..' . '/openzipkin/zipkin/src/Zipkin/Timestamp.php',
         '948c9b6b6a769d2db468357f07afb9ed' => __DIR__ . '/..' . '/openzipkin/zipkin/src/Zipkin/Kind.php',
         'f99ca7ab6b69ea13de674def3146fa4b' => __DIR__ . '/..' . '/openzipkin/zipkin/src/Zipkin/Tags.php',
         '809f512612033e8c2eaab5c48aa38d39' => __DIR__ . '/..' . '/openzipkin/zipkin/src/Zipkin/Annotations.php',
+        '9ecd5fc4cc77829926e562e2b7c63f3a' => __DIR__ . '/..' . '/hyperf/translation/src/Functions.php',
         'fdea4480df6c5882835d3b60a113de4d' => __DIR__ . '/..' . '/hyperf/config/src/Functions.php',
     );
 
@@ -37,8 +41,7 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
         'Z' => 
         array (
             'Zipkin\\' => 7,
-            'Zend\\Stdlib\\' => 12,
-            'Zend\\Mime\\' => 10,
+            'ZipkinOpenTracing\\' => 18,
         ),
         'W' => 
         array (
@@ -75,6 +78,7 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
             'Psr\\Container\\' => 14,
             'Prophecy\\' => 9,
             'PhpParser\\' => 10,
+            'PhpOption\\' => 10,
             'PhpDocReader\\' => 13,
             'PhpCsFixer\\' => 11,
             'PackageVersions\\' => 16,
@@ -82,21 +86,29 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
             'PHPStan\\' => 8,
             'PDepend\\' => 8,
         ),
+        'O' => 
+        array (
+            'OpenTracing\\' => 12,
+        ),
         'M' => 
         array (
             'Monolog\\' => 8,
+        ),
+        'L' => 
+        array (
+            'Laminas\\ZendFrameworkBridge\\' => 28,
+            'Laminas\\Stdlib\\' => 15,
+            'Laminas\\Mime\\' => 13,
         ),
         'J' => 
         array (
             'Jean85\\' => 7,
         ),
-        'I' => 
-        array (
-            'Inhere\\Validate\\' => 16,
-        ),
         'H' => 
         array (
+            'Hyperf\\Validation\\' => 18,
             'Hyperf\\Utils\\' => 13,
+            'Hyperf\\Translation\\' => 19,
             'Hyperf\\Tracer\\' => 14,
             'Hyperf\\Testing\\' => 15,
             'Hyperf\\Server\\' => 14,
@@ -104,6 +116,7 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
             'Hyperf\\Process\\' => 15,
             'Hyperf\\Pool\\' => 12,
             'Hyperf\\Paginator\\' => 17,
+            'Hyperf\\ModelListener\\' => 21,
             'Hyperf\\ModelCache\\' => 18,
             'Hyperf\\Memory\\' => 14,
             'Hyperf\\Logger\\' => 14,
@@ -136,9 +149,14 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
             'Fig\\Http\\Message\\' => 17,
             'FastRoute\\' => 10,
         ),
+        'E' => 
+        array (
+            'Egulias\\EmailValidator\\' => 23,
+        ),
         'D' => 
         array (
             'Dotenv\\' => 7,
+            'Doctrine\\Persistence\\' => 21,
             'Doctrine\\Instantiator\\' => 22,
             'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Inflector\\' => 26,
@@ -171,13 +189,9 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
         array (
             0 => __DIR__ . '/..' . '/openzipkin/zipkin/src/Zipkin',
         ),
-        'Zend\\Stdlib\\' => 
+        'ZipkinOpenTracing\\' => 
         array (
-            0 => __DIR__ . '/..' . '/zendframework/zend-stdlib/src',
-        ),
-        'Zend\\Mime\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/zendframework/zend-mime/src',
+            0 => __DIR__ . '/..' . '/jcchavezs/zipkin-opentracing/src/ZipkinOpenTracing',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -288,6 +302,10 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
+        'PhpOption\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
         'PhpDocReader\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-di/phpdoc-reader/src/PhpDocReader',
@@ -307,27 +325,46 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
         'PHPStan\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpstan/src',
-            1 => __DIR__ . '/..' . '/phpstan/phpstan/build/PHPStan',
         ),
         'PDepend\\' => 
         array (
             0 => __DIR__ . '/..' . '/pdepend/pdepend/src/main/php/PDepend',
         ),
+        'OpenTracing\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/opentracing/opentracing/src/OpenTracing',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Laminas\\ZendFrameworkBridge\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src',
+        ),
+        'Laminas\\Stdlib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laminas/laminas-stdlib/src',
+        ),
+        'Laminas\\Mime\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laminas/laminas-mime/src',
         ),
         'Jean85\\' => 
         array (
             0 => __DIR__ . '/..' . '/jean85/pretty-package-versions/src',
         ),
-        'Inhere\\Validate\\' => 
+        'Hyperf\\Validation\\' => 
         array (
-            0 => __DIR__ . '/..' . '/inhere/php-validate/src',
+            0 => __DIR__ . '/..' . '/hyperf/validation/src',
         ),
         'Hyperf\\Utils\\' => 
         array (
             0 => __DIR__ . '/..' . '/hyperf/utils/src',
+        ),
+        'Hyperf\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyperf/translation/src',
         ),
         'Hyperf\\Tracer\\' => 
         array (
@@ -356,6 +393,10 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
         'Hyperf\\Paginator\\' => 
         array (
             0 => __DIR__ . '/..' . '/hyperf/paginator/src',
+        ),
+        'Hyperf\\ModelListener\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyperf/model-listener/src',
         ),
         'Hyperf\\ModelCache\\' => 
         array (
@@ -457,9 +498,17 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
         ),
+        'Egulias\\EmailValidator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
+        ),
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
+        'Doctrine\\Persistence\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Persistence',
         ),
         'Doctrine\\Instantiator\\' => 
         array (
@@ -517,10 +566,6 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
     public static $prefixesPsr0 = array (
         'P' => 
         array (
-            'PhpOption\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/phpoption/phpoption/src',
-            ),
             'PHPMD\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpmd/phpmd/src/main/php',
@@ -676,6 +721,7 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
         'Nette\\PhpGenerator\\ClassType' => __DIR__ . '/..' . '/nette/php-generator/src/PhpGenerator/ClassType.php',
         'Nette\\PhpGenerator\\Closure' => __DIR__ . '/..' . '/nette/php-generator/src/PhpGenerator/Closure.php',
         'Nette\\PhpGenerator\\Constant' => __DIR__ . '/..' . '/nette/php-generator/src/PhpGenerator/Constant.php',
+        'Nette\\PhpGenerator\\Dumper' => __DIR__ . '/..' . '/nette/php-generator/src/PhpGenerator/Dumper.php',
         'Nette\\PhpGenerator\\Factory' => __DIR__ . '/..' . '/nette/php-generator/src/PhpGenerator/Factory.php',
         'Nette\\PhpGenerator\\GlobalFunction' => __DIR__ . '/..' . '/nette/php-generator/src/PhpGenerator/GlobalFunction.php',
         'Nette\\PhpGenerator\\Helpers' => __DIR__ . '/..' . '/nette/php-generator/src/PhpGenerator/Helpers.php',
@@ -713,6 +759,7 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
         'Nette\\Utils\\DateTime' => __DIR__ . '/..' . '/nette/utils/src/Utils/DateTime.php',
         'Nette\\Utils\\FileSystem' => __DIR__ . '/..' . '/nette/utils/src/Utils/FileSystem.php',
         'Nette\\Utils\\Finder' => __DIR__ . '/..' . '/nette/finder/src/Utils/Finder.php',
+        'Nette\\Utils\\Helpers' => __DIR__ . '/..' . '/nette/utils/src/Utils/Helpers.php',
         'Nette\\Utils\\Html' => __DIR__ . '/..' . '/nette/utils/src/Utils/Html.php',
         'Nette\\Utils\\IHtmlString' => __DIR__ . '/..' . '/nette/utils/src/Utils/IHtmlString.php',
         'Nette\\Utils\\Image' => __DIR__ . '/..' . '/nette/utils/src/Utils/Image.php',
@@ -792,6 +839,7 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
         'PHPUnit\\Framework\\IncompleteTestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/IncompleteTestCase.php',
         'PHPUnit\\Framework\\IncompleteTestError' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/IncompleteTestError.php',
         'PHPUnit\\Framework\\InvalidCoversTargetException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/InvalidCoversTargetException.php',
+        'PHPUnit\\Framework\\InvalidParameterGroupException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/InvalidParameterGroupException.php',
         'PHPUnit\\Framework\\MissingCoversAnnotationException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/MissingCoversAnnotationException.php',
         'PHPUnit\\Framework\\MockObject\\BadMethodCallException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/MockObject/Exception/BadMethodCallException.php',
         'PHPUnit\\Framework\\MockObject\\Builder\\Identity' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/MockObject/Builder/Identity.php',
@@ -856,6 +904,7 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
         'PHPUnit\\Framework\\TestResult' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/TestResult.php',
         'PHPUnit\\Framework\\TestSuite' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/TestSuite.php',
         'PHPUnit\\Framework\\TestSuiteIterator' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/TestSuiteIterator.php',
+        'PHPUnit\\Framework\\UnexpectedValueException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/UnexpectedValueException.php',
         'PHPUnit\\Framework\\UnintentionallyCoveredCodeError' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/UnintentionallyCoveredCodeError.php',
         'PHPUnit\\Framework\\Warning' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Warning.php',
         'PHPUnit\\Framework\\WarningTestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/WarningTestCase.php',

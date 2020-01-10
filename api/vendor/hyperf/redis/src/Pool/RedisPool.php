@@ -7,7 +7,7 @@ declare(strict_types=1);
  * @link     https://www.hyperf.io
  * @document https://doc.hyperf.io
  * @contact  group@hyperf.io
- * @license  https://github.com/hyperf-cloud/hyperf/blob/master/LICENSE
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 
 namespace Hyperf\Redis\Pool;
@@ -15,6 +15,7 @@ namespace Hyperf\Redis\Pool;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\ConnectionInterface;
 use Hyperf\Pool\Pool;
+use Hyperf\Redis\Frequency;
 use Hyperf\Redis\RedisConnection;
 use Hyperf\Utils\Arr;
 use Psr\Container\ContainerInterface;
@@ -43,12 +44,11 @@ class RedisPool extends Pool
         $this->config = $config->get($key);
         $options = Arr::get($this->config, 'pool', []);
 
+        $this->frequency = make(Frequency::class);
+
         parent::__construct($container, $options);
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;

@@ -7,7 +7,7 @@ declare(strict_types=1);
  * @link     https://www.hyperf.io
  * @document https://doc.hyperf.io
  * @contact  group@hyperf.io
- * @license  https://github.com/hyperf-cloud/hyperf/blob/master/LICENSE
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 
 namespace Hyperf\Database\Query\Grammars;
@@ -74,7 +74,7 @@ class Grammar extends BaseGrammar
         $sql = trim(
             $this->concatenate(
                 $this->compileComponents($query)
-        )
+            )
         );
 
         $query->columns = $original;
@@ -102,6 +102,14 @@ class Grammar extends BaseGrammar
     public function compileRandom($seed)
     {
         return 'RANDOM()';
+    }
+
+    /**
+     * Compile an insert ignore statement into SQL.
+     */
+    public function compileInsertOrIgnore(Builder $query, array $values)
+    {
+        throw new RuntimeException('This database engine does not support insert or ignore.');
     }
 
     /**
@@ -770,7 +778,7 @@ class Grammar extends BaseGrammar
         return $not . $this->compileJsonContains(
             $where['column'],
             $this->parameter($where['value'])
-            );
+        );
     }
 
     /**

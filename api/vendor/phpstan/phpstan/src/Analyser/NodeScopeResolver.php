@@ -672,6 +672,7 @@ class NodeScopeResolver
 			} while (!$alwaysTerminating && $count < self::LOOP_SCOPE_ITERATIONS);
 
 			$bodyScope = $bodyScope->mergeWith($scope);
+			$bodyScopeMaybeRan = $bodyScope;
 			$bodyScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, ExpressionContext::createDeep())->getTruthyScope();
 			$finalScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopExitPoints();
 			$finalScope = $finalScopeResult->getScope();
@@ -683,16 +684,17 @@ class NodeScopeResolver
 				$finalScope = $finalScope->mergeWith($breakExitPoint->getScope());
 			}
 
-			$condBooleanType = $scope->getType($stmt->cond)->toBoolean();
-			$isIterableAtLeastOnce = $condBooleanType instanceof ConstantBooleanType && $condBooleanType->getValue();
-			$isAlwaysTerminating = $finalScopeResult->isAlwaysTerminating() && $isIterableAtLeastOnce;
-			if (
-				!$isAlwaysTerminating
-				&& $isIterableAtLeastOnce
-				&& count($breakExitPoints) === 0
-				&& count($finalScopeResult->getTerminatingExitPoints()) > 0
-			) {
-				$isAlwaysTerminating = true;
+			$beforeCondBooleanType = $scope->getType($stmt->cond)->toBoolean();
+			$condBooleanType = $bodyScopeMaybeRan->getType($stmt->cond)->toBoolean();
+			$isIterableAtLeastOnce = $beforeCondBooleanType instanceof ConstantBooleanType && $beforeCondBooleanType->getValue();
+			$alwaysIterates = $condBooleanType instanceof ConstantBooleanType && $condBooleanType->getValue();
+
+			if ($alwaysIterates) {
+				$isAlwaysTerminating = count($finalScopeResult->getExitPointsByType(Break_::class)) === 0;
+			} elseif ($isIterableAtLeastOnce) {
+				$isAlwaysTerminating = $finalScopeResult->isAlwaysTerminating();
+			} else {
+				$isAlwaysTerminating = false;
 			}
 			// todo for all loops - is not falsey when the loop is exited via break
 			$condScope = $condResult->getFalseyScope();
@@ -741,8 +743,15 @@ class NodeScopeResolver
 			$bodyScope = $bodyScope->mergeWith($scope);
 
 			$bodyScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopExitPoints();
-			$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
 			$bodyScope = $bodyScopeResult->getScope();
+			$condBooleanType = $bodyScope->getType($stmt->cond)->toBoolean();
+			$alwaysIterates = $condBooleanType instanceof ConstantBooleanType && $condBooleanType->getValue();
+
+			if ($alwaysIterates) {
+				$alwaysTerminating = count($bodyScopeResult->getExitPointsByType(Break_::class)) === 0;
+			} else {
+				$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
+			}
 			foreach ($bodyScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
 				$bodyScope = $bodyScope->mergeWith($continueExitPoint->getScope());
 			}
@@ -752,15 +761,6 @@ class NodeScopeResolver
 			}
 			if (!$alwaysTerminating) {
 				$finalScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, ExpressionContext::createDeep())->getFalseyScope();
-
-				$condType = $bodyScope->getType($stmt->cond);
-				if (
-					$condType instanceof ConstantBooleanType && $condType->getValue()
-					&& count($bodyScopeResult->getExitPointsByType(Break_::class)) === 0
-					&& count($bodyScopeResult->getTerminatingExitPoints()) > 0
-				) {
-					$alwaysTerminating = true;
-				}
 				// todo not falsey if it breaks out of the loop using break;
 			}
 			foreach ($bodyScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
