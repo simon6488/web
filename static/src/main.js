@@ -16,75 +16,75 @@ import 'font-awesome/scss/font-awesome.scss'
 Vue.use(VueParticles)
 Vue.use(ElementUI)
 
-//axios
+// axios
 axios.defaults.baseURL = Global.baseUrl
 axios.defaults.timeout = 5000
 
-//http request 封装请求头拦截器
+// http request 封装请求头拦截器
 axios.interceptors.request.use(
-    config => {
-        let token = ''
-        if (Cookies.get('user') === undefined) {
-        } else {
-            let user = JSON.parse(Cookies.get('user'))
-            if (user) {
-                token = user.token
-            }
-        }
-        //注意使用的时候需要引入cookie方法，推荐js-cookie
-        config.data = JSON.stringify(config.data)
-        config.headers = {
-            'Content-Type': 'application/json'
-        }
-        if (token != '') {
-            config.headers.token = token
-        }
-        return config
-    },
-    error => {
-        return Promise.reject(err)
+  config => {
+    let token = ''
+    if (Cookies.get('user') === undefined) {
+    } else {
+      let user = JSON.parse(Cookies.get('user'))
+      if (user) {
+        token = user.token
+      }
     }
+    // 注意使用的时候需要引入cookie方法，推荐js-cookie
+    config.data = JSON.stringify(config.data)
+    config.headers = {
+      'Content-Type': 'application/json'
+    }
+    if (token !== '') {
+      config.headers.token = token
+    }
+    return config
+  },
+  error => {
+    return Promise.reject(error)
+  }
 );
 
-//http response 封装后台返回拦截器
+// http response 封装后台返回拦截器
 axios.interceptors.response.use(
-    response => {
-        //当返回信息为未登录或者登录失效的时候重定向为登录页面
-        if (response.data.code == 401 || response.data.code == 403) {
-            router.push('/login');
-        }
-        return response
-    },
-    error => {
-        return Promise.reject(error)
+  response => {
+    // 当返回信息为未登录或者登录失效的时候重定向为登录页面
+    if (response.data.code === 401 || response.data.code === 403) {
+      router.push('/login')
     }
+    return response
+  },
+  error => {
+    return Promise.reject(error)
+  }
 )
 Vue.prototype.$http = axios
 
-//Cookies
+// Cookies
 Vue.prototype.$cookies = Cookies
 
-//filters
+// filters
 Object.keys(filters).forEach(key => {
-    Vue.filter(key, filters[key])
+  Vue.filter(key, filters[key])
 })
 
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
-    let user = Cookies.get('user')
-    if (!user && to.path !== '/login' && to.path !== '/') {
-        next({
-            path: '/login'
-        })
-    } else {
-        next()
-    }
+  let user = Cookies.get('user')
+  if (!user && to.path !== '/login' && to.path !== '/') {
+    next({
+      path: '/login'
+    })
+  } else {
+    next()
+  }
 })
 
 /* eslint-disable no-new */
 new Vue({
-    el: '#app',
-    router: router,
-    render: h => h(App)
+  el: '#app',
+  router: router,
+  render: h => h(App)
 })
