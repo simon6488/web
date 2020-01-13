@@ -23,11 +23,6 @@ class GradeImpl extends BaseImpl implements GradeImplInterface
         // TODO: Implement findOne() method.
     }
 
-    public function findPaginate(array $data): array
-    {
-        // TODO: Implement findPaginate() method.
-    }
-
     public function delete(int $id): array
     {
         // TODO: Implement delete() method.

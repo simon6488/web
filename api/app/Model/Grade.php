@@ -8,6 +8,7 @@ class Grade extends Model
     protected $table = 'grades';
 
     protected $fillable = [
+        'id',//主键
         'student_id',//学生主键
         'grade',//年级
         'term',//学期

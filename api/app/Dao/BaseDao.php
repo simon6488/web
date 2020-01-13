@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Dao;
 
 
+use App\Model\User;
+
 abstract class BaseDao
 {
     /**
@@ -32,5 +34,11 @@ abstract class BaseDao
      * @param int $id
      * @return bool
      */
-    abstract function delete(int $id):bool ;
+    abstract function delete(int $id): bool;
+
+    public function findUserByUsername(string $username): array
+    {
+        $model = User::query()->where('username', $username)->first();
+        return $model ? $model->toArray() : [];
+    }
 }

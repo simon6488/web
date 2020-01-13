@@ -143,6 +143,7 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
+            'Gregwar\\' => 8,
         ),
         'F' => 
         array (
@@ -489,6 +490,10 @@ class ComposerStaticInit032114d711bae13c857ad7de8586cd49
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'Gregwar\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/gregwar/captcha/src/Gregwar',
         ),
         'Fig\\Http\\Message\\' => 
         array (

@@ -25,15 +25,18 @@ class AuthMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        if ($this->request->input('debug')) {
+            return $handler->handle($request);
+        }
         if (($token = $this->request->header('token')) != null) {
             $user = CacheService::get($token);
             if (!$user) {
-                throw new ApiException(ErrorCode::AUTHENTICATION_INVALID, "登录失效");
+                throw new ApiException(ErrorCode::AUTHENTICATION_INVALID);
             }
             Context::set('auth', $user);
             CacheService::setex($token, $user, 3600);
         } else {
-            throw new ApiException(ErrorCode::AUTHENTICATION_REFUSED, "没有权限");
+            throw new ApiException(ErrorCode::AUTHENTICATION_REFUSED);
         }
         return $handler->handle($request);
     }

@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace App\Exception\Handler;
 
+use App\Exception\ApiException;
+use App\Exception\UserException;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\ExceptionHandler\ExceptionHandler;
 use Hyperf\HttpMessage\Stream\SwooleStream;
@@ -34,6 +36,21 @@ class AppExceptionHandler extends ExceptionHandler
     {
         $this->logger->error(sprintf('%s[%s] in %s', $throwable->getMessage(), $throwable->getLine(), $throwable->getFile()));
         $this->logger->error($throwable->getTraceAsString());
+        // 判断被捕获到的异常是希望被捕获的异常
+        if ($throwable instanceof ApiException ||
+            $throwable instanceof UserException) {
+            // 格式化输出
+            $data = json_encode([
+                'code' => $throwable->getCode(),
+                'message' => $throwable->getMessage(),
+            ], JSON_UNESCAPED_UNICODE);
+
+            // 阻止异常冒泡
+            $this->stopPropagation();
+            return $response->withStatus(200)
+                ->withHeader('Content-Type', 'application/json')
+                ->withBody(new SwooleStream($data));
+        }
         return $response->withStatus(500)->withBody(new SwooleStream('Internal Server Error.'));
     }
 

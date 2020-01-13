@@ -17,22 +17,41 @@ Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@i
 
 //站点无需登录
 Router::addGroup('/site', function () {
-    Router::post('/login', 'App\Controller\SiteController@login');
+    Router::post('/login', 'App\Controller\Admin\SiteController@login');
 });
 
-//学生管理
-Router::addGroup('/students', function () {
-    Router::get('', 'App\Controller\StudentController@index');
-    Router::post('', 'App\Controller\StudentController@store');
-    Router::put('/{id}', 'App\Controller\StudentController@update');
-    Router::delete('/{id}', 'App\Controller\StudentController@delete');
-}, ['middleware' => [\App\Middleware\AuthMiddleware::class]]);
+Router::addGroup('/admin', function () {
 
-//成绩管理
-Router::addGroup('/grades', function () {
-    Router::get('', 'App\Controller\GradeController@index');
-    Router::post('', 'App\Controller\GradeController@store');
-    Router::post('/upload', 'App\Controller\GradeController@upload');
-    Router::put('/{id}', 'App\Controller\GradeController@update');
-    Router::delete('/{id}', 'App\Controller\GradeController@delete');
+    //角色管理
+    Router::addGroup('/roles',function (){
+        Router::get('', 'App\Controller\Admin\RoleController@index');
+        Router::post('', 'App\Controller\Admin\RoleController@store');
+        Router::put('/{id}', 'App\Controller\Admin\RoleController@update');
+        Router::delete('/{id}', 'App\Controller\Admin\RoleController@delete');
+    });
+
+    //用户管理
+    Router::addGroup('/users', function () {
+        Router::get('', 'App\Controller\Admin\UserController@index');
+        Router::post('', 'App\Controller\Admin\UserController@store');
+        Router::put('/{id}', 'App\Controller\Admin\UserController@update');
+        Router::delete('/{id}', 'App\Controller\Admin\UserController@delete');
+    });
+
+    //学生管理
+    Router::addGroup('/students', function () {
+        Router::get('', 'App\Controller\Admin\StudentController@index');
+        Router::post('', 'App\Controller\Admin\StudentController@store');
+        Router::put('/{id}', 'App\Controller\Admin\StudentController@update');
+        Router::delete('/{id}', 'App\Controller\Admin\StudentController@delete');
+    });
+
+    //成绩管理
+    Router::addGroup('/grade', function () {
+        Router::get('', 'App\Controller\Admin\GradeController@index');
+        Router::post('', 'App\Controller\Admin\GradeController@store');
+        Router::post('/upload', 'App\Controller\Admin\GradeController@upload');
+        Router::put('/{id}', 'App\Controller\Admin\GradeController@update');
+        Router::delete('/{id}', 'App\Controller\Admin\GradeController@delete');
+    });
 }, ['middleware' => [\App\Middleware\AuthMiddleware::class]]);

@@ -9,11 +9,19 @@ declare(strict_types=1);
 namespace App\Dao;
 
 
+use App\Constants\ErrorCode;
+use App\Exception\ApiException;
+use App\Model\User;
+
 class UserDao extends BaseDao
 {
     public function create(array $data): bool
     {
-        // TODO: Implement create() method.
+        $user = new User($data);
+        if (!$user->save()) {
+            throw new ApiException(ErrorCode::DB_INSERT_FAILED);
+        }
+        return true;
     }
 
     public function update(array $data): bool

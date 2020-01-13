@@ -28,13 +28,6 @@ abstract class BaseImpl
     abstract function findOne(int $id):array ;
 
     /**
-     * 获取列表
-     * @param array $data
-     * @return array
-     */
-    abstract function findPaginate(array $data):array ;
-
-    /**
      * 删除记录
      * @param int $id
      * @return array

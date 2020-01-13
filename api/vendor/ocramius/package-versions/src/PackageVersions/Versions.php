@@ -20,6 +20,7 @@ final class Versions
   'doctrine/lexer' => '1.2.0@5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6',
   'egulias/email-validator' => '2.1.14@c4b8d12921999d8a561004371701dbc2e05b5ece',
   'fig/http-message-util' => '1.1.3@35b19404371b31b3a43823c755398c48c9966db4',
+  'gregwar/captcha' => 'v1.1.7@cf953dd79748406e0292cea8c565399681e4d345',
   'guzzlehttp/guzzle' => '6.5.2@43ece0e75098b7ecd8d13918293029e555a50f82',
   'guzzlehttp/promises' => 'v1.3.1@a59da6cf61d80060647ff4d3eb2c03a2bc694646',
   'guzzlehttp/psr7' => '1.6.1@239400de7a173fe9901b9ac7c06497751f00727a',

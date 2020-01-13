@@ -40,11 +40,11 @@ abstract class Controller
         $this->response = $container->get(ResponseInterface::class);
     }
 
-    public function success(int $code, string $message, $data = null)
+    public function success($data = null)
     {
         return $this->response->json([
-            'code' => $code,
-            'message' => $message,
+            'code' => 0,
+            'message' => 'success',
             'data' => $data
         ]);
     }

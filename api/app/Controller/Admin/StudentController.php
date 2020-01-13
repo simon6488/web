@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Constants\ErrorCode;
+use App\Controller\Controller;
 use App\Repository\StudentRepository;
 use Hyperf\Di\Annotation\Inject;
 

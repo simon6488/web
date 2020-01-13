@@ -21,17 +21,31 @@ use Hyperf\Constants\Annotation\Constants;
 class ErrorCode extends AbstractConstants
 {
     /**
-     * @Message("Success")
+     * @Message("成功")
      */
     const HTTP_OK = 200;
 
     const VALIDATE_ERROR = 422;
 
+    /**
+     * @Message("认证失效")
+     */
     const AUTHENTICATION_INVALID = 401;
 
+    /**
+     * @Message("没有权限")
+     */
     const AUTHENTICATION_REFUSED = 403;
 
     const NOT_FOUND = 404;
 
+    /**
+     * @Message("内部错误")
+     */
     const SERVER_ERROR = 500;
+
+    /**
+     * @Message("数据库插入错误")
+     */
+    const DB_INSERT_FAILED = 800;
 }
