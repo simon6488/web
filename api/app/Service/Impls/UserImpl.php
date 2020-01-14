@@ -20,13 +20,13 @@ class UserImpl extends BaseImpl implements UserImplInterface
      * @Inject()
      * @var UserDao
      */
-    protected $userDao;
+    private $userDao;
 
     /**
      * @Inject()
      * @var UserRequest
      */
-    protected $userRequest;
+    private $userRequest;
 
     public function create(array $data): bool
     {

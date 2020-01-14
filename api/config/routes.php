@@ -22,6 +22,14 @@ Router::addGroup('/site', function () {
 
 Router::addGroup('/admin', function () {
 
+    //模块管理
+    Router::addGroup('/modules',function (){
+        Router::get('', 'App\Controller\Admin\ModuleController@index');
+        Router::post('', 'App\Controller\Admin\ModuleController@store');
+        Router::put('/{id}', 'App\Controller\Admin\ModuleController@update');
+        Router::delete('/{id}', 'App\Controller\Admin\ModuleController@delete');
+    });
+
     //角色管理
     Router::addGroup('/roles',function (){
         Router::get('', 'App\Controller\Admin\RoleController@index');
