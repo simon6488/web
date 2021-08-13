@@ -9,6 +9,7 @@
           <span class="demonstration">选择装备</span>
           <el-cascader
             size="small"
+            clearable
             v-model="value"
             :options="options"
             :props="{ expandTrigger: 'hover' }"
@@ -76,6 +77,7 @@
     },
     methods: {
       handleChange(value) {
+        if (0 === value.length) return;
         this.tableData = [];
         let chose = number[value[0]][value[1]][value[2]];
         let goal = {
@@ -93,12 +95,11 @@
             key: key,
             min: chose[key].最小,
             max: chose[key].最大,
-            input: chose[key].最小
+            input: null
           };
           item.weight = (item.max + item.min) / 2 / goal[key];
           this.tableData.push(item);
         }
-        this.calculate();
       },
       inputChange(e, key) {
         console.log(e);
@@ -118,6 +119,7 @@
         let b = 0;
         for (let k in this.tableData) {
           let item = this.tableData[k];
+          if (null === item.input) continue;
           let mark = (item.input - item.min) / (item.max - item.min);
           a += mark * item.weight;
           b += item.weight;
