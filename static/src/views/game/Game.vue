@@ -1,11 +1,14 @@
 <template>
   <div>
+    <div class="background">
+      <img :src="imgSrc" width="100%" height="100%" alt=""/>
+    </div>
     <el-container>
-      <el-header>牌子分数计算器</el-header>
       <el-main>
         <div class="block">
           <span class="demonstration">选择装备</span>
           <el-cascader
+            size="small"
             v-model="value"
             :options="options"
             :props="{ expandTrigger: 'hover' }"
@@ -16,12 +19,12 @@
             <el-table-column
               prop="key"
               label="属性"
-              width="180">
+              width="100rem">
             </el-table-column>
             <el-table-column
               prop="value"
               label="浮动区间"
-              width="180">
+              width="100rem">
               <template slot-scope="scope">
                 <span>{{scope.row.min}}-{{scope.row.max}}</span>
               </template>
@@ -29,7 +32,7 @@
             <el-table-column
               label="请输入"
               prop="input"
-              width="180">
+              width="100rem">
               <template slot-scope="scope">
                 <el-input
                   type="number"
@@ -42,6 +45,13 @@
           </el-table>
           <p></p>
           <span>评分：{{total}}</span>
+          <p>
+            tips:防具总分50+算能用，60+小极品，70+无敌极品赶紧锻满！武器45分以上就可用，上限自己摸，反正分都低
+          </p>
+          <p>
+            ps:微信一区如梦令找男酮，dd司马梦槐
+          </p>
+          <span></span>
         </div>
       </el-main>
     </el-container>
@@ -59,7 +69,9 @@
         options: equipment,
         number: number,
         tableData: [],
-        total: 0
+        total: 0,
+        imgSrc: require('../../assets/bg.jpg'),
+        clearable: true
       };
     },
     methods: {
