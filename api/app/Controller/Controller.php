@@ -45,7 +45,7 @@ abstract class Controller
         return $this->response->json([
             'code' => 0,
             'message' => 'success',
-            'data' => $data
+            'equipment' => $data
         ]);
     }
 }

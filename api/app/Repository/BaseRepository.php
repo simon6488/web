@@ -103,7 +103,7 @@ abstract class BaseRepository
     }
 
     /**
-     * insert data
+     * insert equipment
      * @param array $attributes
      * @return mixed
      */

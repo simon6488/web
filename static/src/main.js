@@ -73,7 +73,7 @@ Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
   let user = Cookies.get('user')
-  if (!user && to.path !== '/login' && to.path !== '/') {
+  if (!user && to.path !== '/login' && to.path !== '/' && to.path !== '/game') {
     next({
       path: '/login'
     })

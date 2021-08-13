@@ -62,14 +62,14 @@ class GradeRepository extends BaseRepository
             ->orderBy('student_id', 'asc')
             ->paginate(10)->toArray();
         if ($data['total']) {
-            $studentIds = array_column($data['data'], 'student_id');
+            $studentIds = array_column($data['equipment'], 'student_id');
             $studentInfo = $this->studentRepository->findWhere([['student_id', 'in', $studentIds]], ['student_id', 'name', 'gender'])->toArray();
             $studentInfo = array_combine(array_column($studentInfo, 'student_id'), $studentInfo);
-            $data['data'] = array_map(function ($row) use ($studentInfo) {
+            $data['equipment'] = array_map(function ($row) use ($studentInfo) {
                 $row['name'] = isset($studentInfo[$row['student_id']]) ? $studentInfo[$row['student_id']]['name'] : '';
                 $row['gender'] = isset($studentInfo[$row['student_id']]) ? $studentInfo[$row['student_id']]['gender'] : '';
                 return $row;
-            }, $data['data']);
+            }, $data['equipment']);
         }
         return $data;
     }

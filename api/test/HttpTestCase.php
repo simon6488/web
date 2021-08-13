@@ -17,10 +17,10 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class HttpTestCase.
- * @method get($uri, $data = [], $headers = [])
- * @method post($uri, $data = [], $headers = [])
- * @method json($uri, $data = [], $headers = [])
- * @method file($uri, $data = [], $headers = [])
+ * @method get($uri, $equipment = [], $headers = [])
+ * @method post($uri, $equipment = [], $headers = [])
+ * @method json($uri, $equipment = [], $headers = [])
+ * @method file($uri, $equipment = [], $headers = [])
  */
 abstract class HttpTestCase extends TestCase
 {

@@ -7,6 +7,7 @@ import Dashboard from '../views/dashboard/Index'
 import Admin from '../views/admin/Index'
 import Student from '../views/student/Index'
 import Grade from '../views/grade/Index'
+import Game from "../views/game/Game";
 
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ export default new Router({
         {path: 'grade', name: '成绩管理', component: Grade},
         {path: 'admin', name: '系统管理', component: Admin}
       ]
+    },
+    {
+      path: '/game',
+      name: 'Game',
+      component: Game
     }
   ]
 })
